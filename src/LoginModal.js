@@ -11,17 +11,12 @@ class LoginModal extends Component {
       showInvalidEmailMessage: false,
       userEmail: ''
     }
-    this.close = this.close.bind(this);
     this.setUser = this.setUser.bind(this);
     this.setUserAndClose = this.setUserAndClose.bind(this);
   }
 
   componentWillReceiveProps(nextProps){
     this.setState({show:nextProps.show});
-  }
-
-  close(){
-    this.props.closeLoginModal();
   }
 
   setUser(event){
@@ -33,7 +28,7 @@ class LoginModal extends Component {
     event.preventDefault();
     if (Utils.isValidEmailAddress(this.state.userEmail)) {
       this.props.setUser(this.state.userEmail);
-      this.close();
+      this.props.closeLoginModal();
     } else {
       this.setState({showInvalidEmailMessage: true});
     }
@@ -41,7 +36,7 @@ class LoginModal extends Component {
 
   render() {
     return (
-      <Modal show={this.state.show} onHide={this.close}>
+      <Modal show={this.state.show}>
           <Modal.Header>
             <Modal.Title>Enter Email Address</Modal.Title>
           </Modal.Header>
@@ -54,7 +49,7 @@ class LoginModal extends Component {
               <FormControl type="text" name="userEmail" onChange={this.setUser} value={this.state.userEmail}/>
             </Modal.Body>
             <Modal.Footer>
-              <button type="button" className="btn btn-primary" type="submit">OK</button>
+              <button className="btn btn-primary" type="submit">OK</button>
             </Modal.Footer>
           </form>
         </Modal>
