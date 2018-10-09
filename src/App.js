@@ -29,7 +29,7 @@ class App extends Component {
     this.setState({showLoading:true});
     // Load existing chats
     axios.get(Utils.getChatAPIProductionURL() + "chats/" + user).then(function (response) {
-      this.setState({chats:response.data, showLoading:false});
+      this.setState({chats:response.data, showLoading:false, user:user});
     }.bind(this))
     .catch(function (error) {
       console.log(error);
@@ -53,7 +53,7 @@ class App extends Component {
           setUser={this.setUser} 
           closeLoginModal={this.closeLoginModal} 
         />
-        <ChatContainer chats={this.state.chats} />
+        <ChatContainer chats={this.state.chats} user={this.state.user}/>
       </div>
     );
   }

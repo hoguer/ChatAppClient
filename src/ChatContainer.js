@@ -23,7 +23,7 @@ class ChatContainer extends Component {
   setCurrentChat(chatId) {
     this.setState({chatLoading:true});
     axios.get(Utils.getChatAPIProductionURL() + "messages/" + chatId).then(function (response) {
-      this.setState({currentChat:response.data, chatLoading:false});
+      this.setState({currentChat:response.data, currentChatId:chatId, chatLoading:false});
     }.bind(this))
     .catch(function (error) {
       console.log(error);
@@ -35,7 +35,7 @@ class ChatContainer extends Component {
     return (
       <div className="Container">
         <ChatList chats={this.state.chats} setCurrentChat={this.setCurrentChat} />
-        <Chat currentChat={this.state.currentChat} showLoading={this.state.chatLoading}/>
+        <Chat currentChat={this.state.currentChat} showLoading={this.state.chatLoading} currentUser={this.props.user} chatId={this.state.currentChatId}/>
       </div>
 
     );

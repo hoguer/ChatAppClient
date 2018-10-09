@@ -27,6 +27,7 @@ class ChatList extends Component {
 
     return (
       <div className="Chat-list">
+        <h3>Chats</h3>
         <ul className="list-group">
           {chats}
         </ul>
