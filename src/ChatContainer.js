@@ -30,9 +30,8 @@ class ChatContainer extends Component {
     this.channel.bind('test', function(data) {
 
       if((data.UserEmail !== this.props.user) && (data.ChatId === this.state.currentChatId)) {
-        let updatedMessages = [...this.state.currentChat, data]
         this.setState({
-          currentChat: updatedMessages
+          currentChat: [...this.state.currentChat, data]
         });
       }
     }.bind(this));

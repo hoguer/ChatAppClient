@@ -21,7 +21,6 @@ class Chat extends Component {
   }
 
   componentWillReceiveProps(nextProps){
-    console.log(nextProps);
     this.setState({
       messages: nextProps.currentChat,
       showLoading: nextProps.showLoading,
