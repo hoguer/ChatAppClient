@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faSpinner, faPaperPlane } from '@fortawesome/free-solid-svg-icons';
 import { FormControl } from 'react-bootstrap';
 import axios from 'axios';
 import Utils from './utils';
@@ -78,9 +78,11 @@ class Chat extends Component {
       <div className="Chat-box">
         {chatContent}
         {this.state.chatId &&
-          <div>
+          <div className="Message-composer">
             <FormControl type="textarea" name="chatMessage" onChange={this.updateMessage} value={this.state.message}/>
-            <button type="button" className="btn btn-primary" disabled={this.state.message.length === 0} onClick={this.sendMessage}>SEND</button>
+            <button type="button" className="btn btn-primary Send-message" disabled={this.state.message.length === 0} onClick={this.sendMessage}>
+              <FontAwesomeIcon icon={faPaperPlane} />
+            </button>
           </div>
         }
       </div>

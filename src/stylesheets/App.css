@@ -34,6 +34,12 @@
 }
 .Chat-box {
   min-height: 100vh;
+  text-align: left;
+  width: 50%;
+}
+.Active-chat {
+  background-color: #337ab7;
+  color: white;
 }
 
 .Loading-icon-container {
@@ -50,6 +56,14 @@
 .No-messages {
   padding-left:20px;
   padding-top:20px;
+}
+.Message-composer {
+  display:flex;
+  align-items:stretch;
+  margin-left:40px;
+}
+.Send-message {
+  width:50px;
 }
 
 @keyframes App-logo-spin {

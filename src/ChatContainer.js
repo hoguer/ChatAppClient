@@ -60,7 +60,7 @@ class ChatContainer extends Component {
   render() {
     return (
       <div className="Container">
-        <ChatList chats={this.state.chats} setCurrentChat={this.setCurrentChat} />
+        <ChatList chats={this.state.chats} setCurrentChat={this.setCurrentChat} currentChatId={this.state.currentChatId} />
         <Chat currentChat={this.state.currentChat} showLoading={this.state.chatLoading} currentUser={this.props.user} chatId={this.state.currentChatId}/>
       </div>
 

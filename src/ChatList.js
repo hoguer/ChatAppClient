@@ -18,7 +18,7 @@ class ChatList extends Component {
     if (this.state.chats.length > 0) {
       chats = (this.state.chats).map( chat =>(
         <li 
-          className="list-group-item list-group-item-action" 
+          className={"list-group-item list-group-item-action" + (chat.ChatId === this.props.currentChatId? " Active-chat" : "")}
           key={chat.ChatId} 
           onClick={() => this.props.setCurrentChat(chat.ChatId)}> {chat.Members.join(', ')} 
         </li>
