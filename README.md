@@ -1,4 +1,4 @@
-##How to run:
+## How to run:
 
 - Ensure that you have [Node](https://nodejs.org/en/) installed
 - Clone this repository
@@ -10,7 +10,7 @@
 - Enter a different email address into the dialog and click the 'Ok' button
 - Start a chat with yourself! 
 
-##What this app uses:
+## What this app uses:
 
 - [`create-react-app`](https://github.com/facebook/create-react-app#creating-an-app) to initialize the project
 - [axios](https://www.npmjs.com/package/axios) to make API calls 
