@@ -29,7 +29,8 @@ class LoginModal extends Component {
     this.setState({userEmail: email});
   }
 
-  setUserAndClose(){
+  setUserAndClose(event){
+    event.preventDefault();
     if (Utils.isValidEmailAddress(this.state.userEmail)) {
       this.props.setUser(this.state.userEmail);
       this.close();
@@ -44,16 +45,18 @@ class LoginModal extends Component {
           <Modal.Header>
             <Modal.Title>Enter Email Address</Modal.Title>
           </Modal.Header>
-          <Modal.Body className="modalBody">
-            {this.state.showInvalidEmailMessage === true &&
-              <div class="Error-message">Please enter a valid email address.</div>
-            }
-            <ControlLabel>Email Address: </ControlLabel>
-            <FormControl type="text" name="userEmail" onChange={this.setUser} value={this.state.userEmail}/>
-          </Modal.Body>
-          <Modal.Footer>
-            <button type="button" className="btn btn-primary" onClick={this.setUserAndClose}>Ok</button>
-          </Modal.Footer>
+          <form onSubmit={this.setUserAndClose}>
+            <Modal.Body className="modalBody">
+              {this.state.showInvalidEmailMessage === true &&
+                <div class="Error-message">Please enter a valid email address.</div>
+              }
+              <ControlLabel>Email Address: </ControlLabel>
+              <FormControl type="text" name="userEmail" onChange={this.setUser} value={this.state.userEmail}/>
+            </Modal.Body>
+            <Modal.Footer>
+              <button type="button" className="btn btn-primary" type="submit">OK</button>
+            </Modal.Footer>
+          </form>
         </Modal>
     );
 
