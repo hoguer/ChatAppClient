@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FormControl } from 'react-bootstrap';
 import axios from 'axios';
-import Pusher from 'pusher-js';
 import Utils from './utils';
 
 class Chat extends Component {
@@ -19,23 +18,6 @@ class Chat extends Component {
     };
     this.updateMessage = this.updateMessage.bind(this);
     this.sendMessage = this.sendMessage.bind(this);
-  }
-
-  componentDidMount(){
-    console.log(process.env.REACT_APP_PUSHER_KEY);
-    var pusher = new Pusher(process.env.REACT_APP_PUSHER_KEY, {
-      cluster: 'us2',
-      forceTLS: true
-    });
-
-    var channel = pusher.subscribe('chat-app');
-    channel.bind('test', function(data) {
-      if(data.UserEmail !== this.state.currentUser) {
-        this.setState({
-          messages: [...this.state.messages, data]
-        });
-      }
-    }.bind(this));
   }
 
   componentWillReceiveProps(nextProps){
@@ -89,19 +71,19 @@ class Chat extends Component {
           key={m.UserEmail + m.CreatedTime} > {m.UserEmail + ': ' + m.Message} 
         </li>
       ));
-      chatContent = (
-        <div>
-          <ul> 
-            {chatList} 
-          </ul>
-          <FormControl type="textarea" name="chatMessage" onChange={this.updateMessage} value={this.state.message}/>
-          <button type="button" className="btn btn-primary" disabled={this.state.message.length === 0} onClick={this.sendMessage}>SEND</button>
-        </div>
-      );
+      chatContent = (<ul> 
+        {chatList} 
+      </ul>);
     }
     return (
       <div className="Chat-box">
         {chatContent}
+        {this.state.chatId &&
+          <div>
+            <FormControl type="textarea" name="chatMessage" onChange={this.updateMessage} value={this.state.message}/>
+            <button type="button" className="btn btn-primary" disabled={this.state.message.length === 0} onClick={this.sendMessage}>SEND</button>
+          </div>
+        }
       </div>
     );
   }

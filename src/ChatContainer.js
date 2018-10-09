@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Pusher from 'pusher-js';
 import Chat from './Chat';
 import ChatList from './ChatList';
 import Utils from './utils';
@@ -15,6 +16,32 @@ class ChatContainer extends Component {
     };
     this.setCurrentChat = this.setCurrentChat.bind(this);
   }
+
+  componentWillMount(){
+    this.pusher = new Pusher(process.env.REACT_APP_PUSHER_KEY, {
+      cluster: 'us2',
+      forceTLS: true
+    });
+
+    this.channel = this.pusher.subscribe('chat-app');
+  }
+
+  componentDidMount(){
+    this.channel.bind('test', function(data) {
+
+      if((data.UserEmail !== this.props.user) && (data.ChatId === this.state.currentChatId)) {
+        let updatedMessages = [...this.state.currentChat, data]
+        this.setState({
+          currentChat: updatedMessages
+        });
+      }
+    }.bind(this));
+  }
+
+  componentWillUnmount() {
+    this.channel.unbind();
+    this.pusher.unsubscribe(this.channel);
+  } 
 
   componentWillReceiveProps(nextProps){
     this.setState({chats:nextProps.chats});
