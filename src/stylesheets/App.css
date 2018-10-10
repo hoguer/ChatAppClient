@@ -41,6 +41,17 @@
   background-color: #337ab7;
   color: white;
 }
+.Chat-list-header {
+  display:flex;
+  align-items:stretch;
+  font-size:24px;
+}
+.Chat-list-header-text {
+  width:100%;
+}
+.Create-new-chat {
+  border:none;
+}
 
 .Loading-icon-container {
   width:100%;

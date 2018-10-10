@@ -3,6 +3,7 @@ import axios from 'axios';
 import Pusher from 'pusher-js';
 import Chat from './Chat';
 import ChatList from './ChatList';
+import NewChatModal from './NewChatModal';
 import Utils from './utils';
 
 class ChatContainer extends Component {
@@ -12,9 +13,12 @@ class ChatContainer extends Component {
     this.state = {
       chats: props.chats,
       currentChat: [],
-      chatLoading: false
+      chatLoading: false,
+      showNewChatModal: false
     };
     this.setCurrentChat = this.setCurrentChat.bind(this);
+    this.toggleNewChatModal = this.toggleNewChatModal.bind(this);
+    this.addChatAndSetToCurrent = this.addChatAndSetToCurrent.bind(this);
   }
 
   componentWillMount(){
@@ -57,11 +61,41 @@ class ChatContainer extends Component {
     });
   }
 
+  addChatAndSetToCurrent(chatObject) {
+    console.log("ADD CHAT");
+    console.log(chatObject);
+    let newChats = [chatObject, ...this.state.chats];
+    console.log(newChats);
+    this.setState({
+      chats:[chatObject, ...this.state.chats]
+    });
+    this.setCurrentChat(chatObject.ChatId);
+  }
+
+  toggleNewChatModal(){
+    this.setState({showNewChatModal:!this.state.showNewChatModal});
+  }
+
   render() {
     return (
       <div className="Container">
-        <ChatList chats={this.state.chats} setCurrentChat={this.setCurrentChat} currentChatId={this.state.currentChatId} />
-        <Chat currentChat={this.state.currentChat} showLoading={this.state.chatLoading} currentUser={this.props.user} chatId={this.state.currentChatId}/>
+        {this.state.showNewChatModal &&
+          <NewChatModal 
+            show={this.state.showNewChatModal} 
+            close={this.toggleNewChatModal}
+            currentUser={this.props.user} 
+            addChatAndSetToCurrent={this.addChatAndSetToCurrent} />
+        }
+        <ChatList 
+          chats={this.state.chats} 
+          setCurrentChat={this.setCurrentChat} 
+          currentChatId={this.state.currentChatId} 
+          showNewChatModal={this.toggleNewChatModal}/>
+        <Chat 
+          currentChat={this.state.currentChat} 
+          showLoading={this.state.chatLoading} 
+          currentUser={this.props.user} 
+          chatId={this.state.currentChatId} />
       </div>
 
     );

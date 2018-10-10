@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit } from '@fortawesome/free-solid-svg-icons';
 
 class ChatList extends Component {
 
@@ -27,7 +29,12 @@ class ChatList extends Component {
 
     return (
       <div className="Chat-list">
-        <h3>Chats</h3>
+        <div className="Chat-list-header">
+          <div role="heading" className="Chat-list-header-text">Chats</div>
+          <button type="button" className="Create-new-chat" onClick={this.props.showNewChatModal}>
+            <FontAwesomeIcon icon={faEdit} />
+          </button>
+        </div>
         <ul className="list-group">
           {chats}
         </ul>
