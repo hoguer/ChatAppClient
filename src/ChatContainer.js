@@ -62,10 +62,7 @@ class ChatContainer extends Component {
   }
 
   addChatAndSetToCurrent(chatObject) {
-    console.log("ADD CHAT");
-    console.log(chatObject);
     let newChats = [chatObject, ...this.state.chats];
-    console.log(newChats);
     this.setState({
       chats:[chatObject, ...this.state.chats]
     });
